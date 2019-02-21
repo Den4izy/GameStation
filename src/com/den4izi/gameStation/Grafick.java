@@ -6,102 +6,137 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Grafick extends JPanel implements ActionListener {
-    Generator generator = new Generator();
-    EnergyWire energyWire = new EnergyWire();
-    Res res = new Res();
-    Energy energy = new Energy();
 
     private Timer timer;
 
 
-    public JLabel labMoney = new JLabel("money");
-    public JTextField textMoney = new JTextField("000");
-    public JButton butEnergy = new JButton("gen");
+
+
+
+
+    public int k = 0;
+    public Buttons buttons = new Buttons();
+    public Generator generator = new Generator();
+    public Wire wire = new Wire();
 
 
 
 
     public Grafick() {
+        setBackground(Color.BLACK);
         setLayout(null);
-        add(labMoney);
-        add(textMoney);
-        add(butEnergy);
-        start();
-
-    }
-
-
-    public void createButs(){
-
-        labMoney.setBounds(600,50,50,20);
-        labMoney.setVisible(true);
-
-        textMoney.setBounds(660,50,50,20);
-        textMoney.setVisible(true);
-        butEnergy.setBounds(50,50,100,50);
-        butEnergy.setVisible(true);
-        System.out.println("test");
-
-        butEnergy.addActionListener(new ActionListener() {
+        buttons.butEnergy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generator.creatEnergy();
-                System.out.println(generator.countEnergy);
+                //generator.countEnergy = generator.countEnergy + 1;
+
             }
         });
+        buttons.butCreateGenerator.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generator.createGenerator();
+            }
+        });
+
+        buttons.butCreateWireGenerator.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ( generator.generatorExist == true){
+                    int y = (((generator.positionY + generator.height) - generator.positionY) / 2) + generator.positionY;
+                    wire.createWireGenerator(generator.positionX + generator.width,y,450,y);
+                }
+
+
+            }
+        });
+        add(buttons.labMoney);
+        add(buttons.textMoney);
+        add(buttons.butEnergy);
+        add(buttons.butCreateGenerator);
+        add(buttons.butCreateWireGenerator);
+        add(buttons.labEnergy);
+        add(buttons.labTemp);
+        start();
     }
-
-
-
-
-
-
 
 
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.GREEN);
-        if (generator.generatorExist == true){
-            generator.createGenerator(g);
-        }
-        res.craeteRes(g);
-        g.setColor(Color.BLACK);
-        energyWire.creat_generator_res(g);
-        if( generator.countEnergy > 0){
-            System.out.println(444);
-            energy.createEnergy(g);
+        if ( generator.generatorExist == true){
+            generator.drawGenerator(g);
         }
 
-
-
-
-
-
-
-
-
-
+        wire.drawAr(wire,g);
     }
 
     public void start(){
-        createButs();
-        timer = new Timer(500, this);
-        move();
+        buttons.createButs();
+        timer = new Timer(100, this);
         timer.start();
-
     }
+
     public void move(){
-        energy.energyMove(450,410);
+        wire.moveArWire(wire);
+        buttons.textMoney.setText(String.valueOf(wire.countEnergy));
+        if (generator.generatorExist == false){
+
+            buttons.labEnergy.setVisible(false);
+            buttons.labTemp.setVisible(false);
+        }else {
+            buttons.labEnergy.setVisible(true);
+            buttons.labTemp.setVisible(true);
+        }
+        if (generator.generatorExist == true){
+            System.out.println(222);
+            buttons.labEnergy.setText(String.valueOf(generator.countEnergy) + " MWt");
+            buttons.labTemp.setText(String.valueOf(generator.temperature) + " t");
+        }
+
+        if ( wire.wireExist == true){
+            buttons.butCreateWireGenerator.setEnabled(false);
+        }
+        if ( generator.countEnergy >= 10){
+            if ( wire.wireExist == true){
+                Energy energy = new Energy(wire);
+                generator.countEnergy = generator.countEnergy - 10;
+            }
 
 
+        }
+        if(generator.temperature <= 40){
+            buttons.labTemp.setForeground(Color.GREEN);
+        }else if (generator.temperature >=41 && generator.temperature <= 75){
+            buttons.labTemp.setForeground(Color.YELLOW);
+        }else{
+            buttons.labTemp.setForeground(Color.RED);
+        }
 
+
+        if ( generator.generatorExist == true){
+            if ( generator.temperature < 90 && generator.cold == 0){
+
+                generator.countEnergy = generator.countEnergy + 2;
+                generator.temperature = generator.temperature + 1;
+            }else {
+                generator.temperature = generator.temperature - 2;
+                if ( generator.temperature == 20){
+                    generator.cold = 0;
+                }else{
+                    generator.cold = 1;
+                }
+
+            }
+
+        }
+        System.out.println(generator.temperature);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        move();
         repaint();
     }
 }

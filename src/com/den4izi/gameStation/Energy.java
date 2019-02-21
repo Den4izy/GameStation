@@ -1,20 +1,26 @@
 package com.den4izi.gameStation;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class Energy {
-
+public class Energy extends JPanel {
+    public Image imageEnergy;
     Generator generator = new Generator();
 
-    public void createEnergy(Graphics graphics){
-        graphics.setColor(Color.BLUE);
-        graphics.fillRect(220,200,30,30);
+    public Wire wire = new Wire();
+    public  int energyX;
+    public  int energyY;
 
-
+    public void loadImages(){
+        ImageIcon img = new ImageIcon("energy.png");
+        imageEnergy = img.getImage();
     }
-    public void energyMove(int x, int y){
-        for (int i = 0; i < 10; i++){
-            x = x + 5;
-        }
+
+    public Energy( Wire wire) {
+        this.energyX = wire.startX;
+        this.energyY = wire.startY;
+        loadImages();
+        wire.addAr(this);
+
     }
 }
