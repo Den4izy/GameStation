@@ -3,6 +3,8 @@ package com.den4izi.gameStation;
 import javax.swing.*;
 import java.awt.*;
 
+//добавить картинку селлера
+
 public class MainGame extends JFrame{
 
     public MainGame(){

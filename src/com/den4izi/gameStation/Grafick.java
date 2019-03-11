@@ -18,12 +18,13 @@ public class Grafick extends JPanel implements ActionListener {
     public Buttons buttons = new Buttons();
     public Generator generator = new Generator();
     public Wire wire = new Wire();
+    public Seller seller = new Seller();
 
 
 
 
     public Grafick() {
-        setBackground(Color.BLACK);
+        setBackground(Color.GRAY);
         setLayout(null);
         buttons.butEnergy.addActionListener(new ActionListener() {
             @Override
@@ -36,6 +37,13 @@ public class Grafick extends JPanel implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generator.createGenerator();
+            }
+        });
+
+        buttons.butCreateSeller.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seller.createSeller();
             }
         });
 
@@ -55,6 +63,7 @@ public class Grafick extends JPanel implements ActionListener {
         add(buttons.butEnergy);
         add(buttons.butCreateGenerator);
         add(buttons.butCreateWireGenerator);
+        add(buttons.butCreateSeller);
         add(buttons.labEnergy);
         add(buttons.labTemp);
         start();
@@ -67,6 +76,9 @@ public class Grafick extends JPanel implements ActionListener {
         super.paintComponent(g);
         if ( generator.generatorExist == true){
             generator.drawGenerator(g);
+        }
+        if(seller.isExistSeller()){
+            seller.drawSeller(g);
         }
 
         wire.drawAr(wire,g);

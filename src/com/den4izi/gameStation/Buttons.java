@@ -13,6 +13,7 @@ public class Buttons {
     public JButton butEnergy = new JButton("gen");
     public JButton butCreateGenerator = new JButton("Generator");
     public JButton butCreateWireGenerator = new JButton("Wire");
+    public JButton butCreateSeller = new JButton("Seller");
     public JLabel labEnergy = new JLabel("0");
     public JLabel labTemp = new JLabel("0");
 
@@ -28,6 +29,8 @@ public class Buttons {
         butCreateGenerator.setVisible(true);
         butCreateWireGenerator.setBounds(50,150,100,50);
         butCreateWireGenerator.setVisible(true);
+        butCreateSeller.setBounds(50,200,100,50);
+        butCreateSeller.setVisible(true);
         labEnergy.setBounds(235,270,50,40);
         labEnergy.setVisible(true);
         labTemp.setBounds(235,320,50,40);

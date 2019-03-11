@@ -42,7 +42,7 @@ public class Wire extends JPanel {
             graphics.setColor(Color.BLACK);
             graphics.drawLine(wire.startX, wire.startY,wire.finishX, wire.finishY);
             for ( int i = 0; i < arr.size(); i++){
-                graphics.setColor(Color.RED);
+                graphics.setColor(Color.GREEN);
                 graphics.drawImage(arr.get(i).imageEnergy,arr.get(i).energyX, arr.get(i).energyY -5, this);
             }
         }
