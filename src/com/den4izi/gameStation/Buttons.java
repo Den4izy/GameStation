@@ -12,6 +12,7 @@ public class Buttons {
     public JTextField textMoney = new JTextField("000");
     public JButton butEnergy = new JButton("gen");
     public JButton butCreateGenerator = new JButton("Generator");
+    public JButton butUpdateGenerator = new JButton("+");
     public JButton butCreateWireGenerator = new JButton("Wire");
     public JButton butCreateSeller = new JButton("Seller");
     public JLabel labEnergy = new JLabel("0");
@@ -27,6 +28,8 @@ public class Buttons {
         butEnergy.setVisible(true);
         butCreateGenerator.setBounds(50,100,100,50);
         butCreateGenerator.setVisible(true);
+        butUpdateGenerator.setBounds(160,100,50,50);
+        butUpdateGenerator.setVisible(true);
         butCreateWireGenerator.setBounds(50,150,100,50);
         butCreateWireGenerator.setVisible(true);
         butCreateSeller.setBounds(50,200,100,50);

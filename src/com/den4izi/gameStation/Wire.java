@@ -8,6 +8,7 @@ public class Wire extends JPanel {
 
     public Buttons buttons = new Buttons();
     public Generator generator = new Generator();
+    GameCount gameCount = new GameCount();
 
     public int countEnergy = 0;
     public int startX;
@@ -53,9 +54,11 @@ public class Wire extends JPanel {
         if ( wireExist == true){
             for(int i = 0; i < arr.size(); i++){
                 arr.get(i).energyX = arr.get(i).energyX + 2;
-                if (arr.get(i).energyX >= wire.finishX){
+                if (arr.get(i).energyX >= wire.finishX - 10){
                     countEnergy = countEnergy + 10;
+                    gameCount.setMoney(gameCount.getMoney() + 10);
                     arr.remove(i);
+                    //System.out.println(gameCount.getMoney());
                 }
             }
         }

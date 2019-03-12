@@ -16,6 +16,8 @@ public class Generator extends JLabel {
     public int height;
     public int cold;
     public int temperature;
+    public int update;
+    public int updatePrice;
 
     public void loadImages(){
         ImageIcon img = new ImageIcon("generator.png");
@@ -32,6 +34,8 @@ public class Generator extends JLabel {
         loadImages();
         generatorExist = true;
         temperature = 0;
+        update = 1;
+        updatePrice = 100;
     }
 
     public void drawGenerator(Graphics graphics){

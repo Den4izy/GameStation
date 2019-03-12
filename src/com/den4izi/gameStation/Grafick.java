@@ -19,6 +19,7 @@ public class Grafick extends JPanel implements ActionListener {
     public Generator generator = new Generator();
     public Wire wire = new Wire();
     public Seller seller = new Seller();
+    public GameCount gameCount = new GameCount();
 
 
 
@@ -40,6 +41,16 @@ public class Grafick extends JPanel implements ActionListener {
             }
         });
 
+        buttons.butUpdateGenerator.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generator.update = generator.update + 1;
+                generator.updatePrice = generator.updatePrice + 100;
+                gameCount.setMoney(gameCount.getMoney() - generator.updatePrice);
+
+            }
+        });
+
         buttons.butCreateSeller.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,9 +61,9 @@ public class Grafick extends JPanel implements ActionListener {
         buttons.butCreateWireGenerator.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ( generator.generatorExist == true){
+                if ( generator.generatorExist == true & seller.isExistSeller()){
                     int y = (((generator.positionY + generator.height) - generator.positionY) / 2) + generator.positionY;
-                    wire.createWireGenerator(generator.positionX + generator.width,y,450,y);
+                    wire.createWireGenerator(generator.positionX + generator.width,y,seller.getPositionX(),y);
                 }
 
 
@@ -62,6 +73,7 @@ public class Grafick extends JPanel implements ActionListener {
         add(buttons.textMoney);
         add(buttons.butEnergy);
         add(buttons.butCreateGenerator);
+        add(buttons.butUpdateGenerator);
         add(buttons.butCreateWireGenerator);
         add(buttons.butCreateSeller);
         add(buttons.labEnergy);
@@ -92,7 +104,7 @@ public class Grafick extends JPanel implements ActionListener {
 
     public void move(){
         wire.moveArWire(wire);
-        buttons.textMoney.setText(String.valueOf(wire.countEnergy));
+        buttons.textMoney.setText(String.valueOf(gameCount.getMoney()));
         if (generator.generatorExist == false){
 
             buttons.labEnergy.setVisible(false);
@@ -102,9 +114,14 @@ public class Grafick extends JPanel implements ActionListener {
             buttons.labTemp.setVisible(true);
         }
         if (generator.generatorExist == true){
-            System.out.println(222);
+
             buttons.labEnergy.setText(String.valueOf(generator.countEnergy) + " MWt");
             buttons.labTemp.setText(String.valueOf(generator.temperature) + " t");
+        }
+        if ( gameCount.getMoney() >= generator.updatePrice){
+            buttons.butUpdateGenerator.setEnabled(true);
+        }else{
+            buttons.butUpdateGenerator.setEnabled(false);
         }
 
         if ( wire.wireExist == true){
@@ -130,7 +147,7 @@ public class Grafick extends JPanel implements ActionListener {
         if ( generator.generatorExist == true){
             if ( generator.temperature < 90 && generator.cold == 0){
 
-                generator.countEnergy = generator.countEnergy + 2;
+                generator.countEnergy = generator.countEnergy + 2 + generator.update;
                 generator.temperature = generator.temperature + 1;
             }else {
                 generator.temperature = generator.temperature - 2;
@@ -143,7 +160,7 @@ public class Grafick extends JPanel implements ActionListener {
             }
 
         }
-        System.out.println(generator.temperature);
+
     }
 
     @Override

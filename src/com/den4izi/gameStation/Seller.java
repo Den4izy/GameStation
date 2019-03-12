@@ -54,7 +54,7 @@ public class Seller extends JLabel {
     }
 
     public void loadImages(){
-        ImageIcon img = new ImageIcon("generator.png");
+        ImageIcon img = new ImageIcon("seller.png");
         imageSeller = img.getImage();
     }
 
@@ -62,7 +62,7 @@ public class Seller extends JLabel {
         setCountSeller(0);
         loadImages();
         setPositionX(500);
-        setPositionY(500);
+        setPositionY(300);
         setExistSeller(true);
     }
 
