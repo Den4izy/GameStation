@@ -21,6 +21,7 @@ public class Generator extends JLabel {
     public static int update;
     public static int updatePrice;
 
+
     public void loadImages(){
         ImageIcon img = new ImageIcon("generator.png");
         imageGenerator = img.getImage();
