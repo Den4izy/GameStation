@@ -5,19 +5,21 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 
+
+
 public class Generator extends JLabel {
 
-    public Image imageGenerator;
-    public int countEnergy;
-    public  boolean generatorExist = false;
-    public int positionX;
-    public int positionY;
-    public int width;
-    public int height;
-    public int cold;
-    public int temperature;
-    public int update;
-    public int updatePrice;
+    public static Image imageGenerator;
+    public static int countEnergy;
+    public static boolean generatorExist = false;
+    public static int positionX;
+    public static int positionY;
+    public static int width;
+    public static int height;
+    public static int cold;
+    public static int temperature;
+    public static int update;
+    public static int updatePrice;
 
     public void loadImages(){
         ImageIcon img = new ImageIcon("generator.png");
@@ -38,12 +40,46 @@ public class Generator extends JLabel {
         updatePrice = 100;
     }
 
-    public void drawGenerator(Graphics graphics){
 
+    public void drawGenerator(Graphics graphics){
         if (generatorExist == true){
-            //graphics.setColor(Color.GREEN);
-            //graphics.fillRect(positionX, positionY, width, height);
             graphics.drawImage(imageGenerator,positionX,positionY,  this);
+        }
+    }
+    public void generatorHot(){
+        if ( generatorExist == true && update >= 2){
+            if ( temperature < 90 && cold == 0){
+
+                countEnergy = countEnergy + 2 + update;
+                temperature = temperature + 1;
+            }else {
+                temperature = temperature - 2;
+                if ( temperature == 20){
+                    cold = 0;
+                }else{
+                    cold = 1;
+                }
+
+            }
+
+        }
+    }
+    public void generateCreat(){
+        if ( generatorExist == true){
+            if ( temperature < 90 && cold == 0){
+
+                countEnergy = countEnergy + 2 + update;
+                temperature = temperature + 1;
+            }else {
+                temperature = temperature - 2;
+                if ( temperature == 20){
+                    cold = 0;
+                }else{
+                    cold = 1;
+                }
+
+            }
+
         }
     }
 }

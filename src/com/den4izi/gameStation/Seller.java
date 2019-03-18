@@ -6,11 +6,11 @@ import java.util.PrimitiveIterator;
 
 public class Seller extends JLabel {
 
-    private int countSeller;
-    private int positionX;
-    private int positionY;
-    private Image imageSeller;
-    private boolean existSeller = false;
+    private static int countSeller;
+    private static int positionX;
+    private static int positionY;
+    private static Image imageSeller;
+    private static boolean existSeller = false;
 
 
     public int getCountSeller() {
@@ -69,8 +69,6 @@ public class Seller extends JLabel {
     public void drawSeller(Graphics graphics){
 
         if (isExistSeller() == true){
-            //graphics.setColor(Color.GREEN);
-            //graphics.fillRect(positionX, positionY, width, height);
             graphics.drawImage(imageSeller,getPositionX(),getPositionY(),  this);
         }
     }

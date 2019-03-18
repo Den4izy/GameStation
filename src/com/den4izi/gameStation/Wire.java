@@ -6,17 +6,16 @@ import java.util.ArrayList;
 
 public class Wire extends JPanel {
 
-    public Buttons buttons = new Buttons();
-    public Generator generator = new Generator();
+
     GameCount gameCount = new GameCount();
 
-    public int countEnergy = 0;
-    public int startX;
-    public int startY;
-    public int finishX;
-    public int finishY;
-    public ArrayList<Energy> arr;
-    public boolean wireExist = false;
+    public static int countEnergy = 0;
+    public static int startX;
+    public static int startY;
+    public static int finishX;
+    public static int finishY;
+    public static ArrayList<Energy> arr;
+    public static boolean wireExist = false;
 
     public void createWireGenerator(int startX, int startY, int finishX, int finishY) {
         this.startX = startX;
